@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="components/reset.css">
+    <link rel="stylesheet" type="text/css" href="components/site.css">
+    <link rel="stylesheet" type="text/css" href="components/container.css">
+    <link rel="stylesheet" type="text/css" href="components/grid.css">
+    <link rel="stylesheet" type="text/css" href="components/header.css">
+    <link rel="stylesheet" type="text/css" href="components/image.css">
+    <link rel="stylesheet" type="text/css" href="components/menu.css">
+    <link rel="stylesheet" type="text/css" href="components/divider.css">
+    <link rel="stylesheet" type="text/css" href="components/dropdown.css">
+    <link rel="stylesheet" type="text/css" href="components/segment.css">
+    <link rel="stylesheet" type="text/css" href="components/button.css">
+    <link rel="stylesheet" type="text/css" href="components/card.css">
+    <link rel="stylesheet" type="text/css" href="components/label.css">
+    <link rel="stylesheet" type="text/css" href="components/reveal.css">
+    <link rel="stylesheet" type="text/css" href="components/rating.css">
+    <link rel="stylesheet" type="text/css" href="components/popup.css">
+    <link rel="stylesheet" type="text/css" href="components/dimmer.css">
+    <link rel="stylesheet" type="text/css" href="components/list.css">
+    <link rel="stylesheet" type="text/css" href="components/icon.css">
+    <link rel="stylesheet" type="text/css" href="components/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="components/transition.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/semantic.css">
+    <script src="assets/library/jquery.min.js"></script>
+    <script src="components/popup.js"></script>
+    <script src="components/dimmer.js"></script>
+    <script src="components/rating.js"></script>
+    <script src="components/visibility.js"></script>
+    <script src="components/sidebar.js"></script>
+    <script src="components/transition.js"></script>
+    <script src="js/semantic.js"></script>
+    <script src="js/navbar_mod.js"></script>
+    <!-- MapBoxGL JS-->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+    <!-- MapBox GeoCoder -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.4/mapbox-gl-geocoder.css' type='text/css' />
+</head>
+<body>
+
+<div class="ui large top fixed menu">
+  <div class="ui container">
+    <a class="toc item"><i class="sidebar icon"></i></a>
+    <div class="left menu">
+      <a class="item" href="index.html">Home</a>
+      <a class="active item" href="maps.html">Maps</a>
+      <a class="item" href="#">About</a>
+    </div>
+    <div class="right menu">
+      <img src="img/corgi4.gif" style="height:50px;width:50px;">
+    </div>
+  </div>
+</div>
+
+<!-- Sidebar -->
+<div class="ui vertical inverted sidebar menu">
+    <a class="item" href="#">Home</a>
+    <a class="active item" href="maps.html">Maps</a>
+</div>
+
+<div class="pusher" style="margin-top:3em;">
+
+    <div class="ui vertical stripe segment" id="thirdpanel" style="background-color: rgb(221,222,226);">
+        <div class="ui middle aligned stackable grid container">
+            <div class="row">
+                <div class="eight wide column">
+                    <img src="img/map.gif">
+                </div>
+                <div class="eight wide right floated column">
+                    <h3 class="ui header">GIS Platform</h3>
+                    <p>Look for our pet clinics and vets near you. There must be at least one, surely.</p>
+                    <a class="ui green button" href="#">Maps</a>
+                </div>
+            </div>
+        </div>    
+    </div>
+
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.css' type='text/css' />
+    <div id='map' style='width: 100%; height: 500px;'>
+
+    </div>
+    
+    <!-- MapBox SDK -->
+    <script src='https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js'></script>
+    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+    <script>
+    // MapBox
+    // API Key
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic3RhcmtmaXJlIiwiYSI6ImNqdDF0aXFjNTFjY2s0NHBpZmE4OHQyNW8ifQ.apgQWvkw4nlGgwg2IYg_pA';
+    // Map Container
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [120.9794, 14.5831],
+            zoom: 15
+        }); 
+    // Directions
+        map.addControl(new MapboxDirections({
+            accessToken: mapboxgl.accessToken
+        }), 'top-left');
+    // Geocoder
+        map.addControl(new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken
+        }));
+    // Fetch User Location
+        map.addControl(new mapboxgl.GeolocateControl({
+            positionOptions: {enableHighAccuracy: true},
+            trackUserLocation: true
+        }));
+    // Controller
+        map.addControl(new mapboxgl.NavigationControl());
+    </script>
+
+    <div class="services">
+        <div class="ui container">
+            <br>
+            <h1 class="ui horizontal divider" style="font-size: 30px;">Top-Notch and High Class Clinics</h1>
+            <br>
+            <div class="ui stackable inverted divided equal height stackable grid">
+                <div class="eight wide column">
+                    <div class="ui segment">
+                        <div class="ui green ribbon label">Walk-in</div>
+                        <div class="ui red dividing header">
+                            <div class="content">
+                                UP Veterinary Teaching Hospital
+                                <div class="sub header">101 Jacinto, Diliman, Quezon City, 1101 Metro Manila</div>
+                            </div>
+                        </div>
+                        <div class="ui ordered list">
+                            <div class="item" id="doctor">
+                                <img class="ui avatar image" src="img/avatar11.jpg">
+                                <div class="content">
+                                    <div class="header">Dr. Kim Baltazar</div>
+                                    University of the Philippines Los Banos
+                                </div>
+                            </div>
+                            <div class="item" id="doctor">
+                                <img class="ui avatar image" src="img/avatar12.jpg">
+                                <div class="content">
+                                    <div class="header">Dr. Lucas Magpantay</div>
+                                    University of the Philippines Los Banos
+                                </div>
+                            </div>
+                            <div class="item" id="doctor">
+                                <img class="ui avatar image" src="img/avatar10.jpg">
+                                <div class="content">
+                                    <div class="header">Dr. Josh Yuzon</div>
+                                    University of the Philippines Los Banos
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="eight wide column">
+                    <div class="ui segment">
+                        <div class="ui green ribbon label">Walk-in</div>
+                        <div class="ui red dividing header">
+                            <div class="content">
+                                Vets In Practice Inc.
+                                <div class="sub header">63 Maysilo Cir, Mandaluyong, 1550 Metro Manila</div>
+                            </div>
+                        </div>
+                        <div class="ui ordered list">
+                            <div class="item" id="doctor">
+                                <img class="ui avatar image" src="img/avatar7.jpg">
+                                <div class="content">
+                                    <div class="header">Dr. Arthur Magsilang</div>
+                                    University of Prince Edward Island
+                                </div>
+                            </div>
+                            <div class="item" id="doctor">
+                                <img class="ui avatar image" src="img/avatar8.jpg">
+                                <div class="content">
+                                    <div class="header">Dr. Laiza Salazar-Chua</div>
+                                    De La Salle Araneta University
+                                </div>
+                            </div>
+                            <div class="item" id="doctor">
+                                <img class="ui avatar image" src="img/avatar16.jpg">
+                                <div class="content">
+                                    <div class="header">Dr. Samantha Lazaro</div>
+                                    Southwestern University PHINMA
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="eight wide column">
+                    <div class="ui segment">
+                        <div class="ui blue ribbon label">Reservation</div>
+                        <div class="ui red dividing header">
+                            <div class="content">
+                                Fort Bonifacio Veterinary Clinic
+                                <div class="sub header">Kensington Place, 1st Ave, Bonifacio Global City, Taguig, 1634 Metro Manila</div>
+                            </div>
+                        </div>
+                        <div class="ui ordered list">
+                            <div class="item" id="doctor">
+                                <img class="ui avatar image" src="img/avatar1.jpg">
+                                <div class="content">
+                                    <div class="header">Dr. Michael Davis</div>
+                                    University of California Los Angeles
+                                </div>
+                            </div>
+                            <div class="item" id="doctor">
+                                <img class="ui avatar image" src="img/avatar2.jpg">
+                                <div class="content">
+                                    <div class="header">Dr. Caroline Paige</div>
+                                    Imperial College London
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="eight wide column">
+                    <div class="ui segment">
+                        <div class="ui blue ribbon label">Reservation</div>
+                        <div class="ui red dividing header">
+                            
+                            <div class="content">
+                                Fil-Chinese Animal Clinic
+                                <div class="sub header">1316 Benavides St, Sta Cruz, Manila</div>
+                            </div>
+                        </div>
+                        <div class="ui ordered list">
+                            <div class="item" id="doctor">
+                                <img class="ui avatar image" src="img/avatar5.jpg">
+                                <div class="content">
+                                    <div class="header">Dr. Angeline Liu</div>
+                                    De La Salle Araneta University
+                                </div>
+                            </div>
+                            <div class="item" id="doctor">
+                                <img class="ui avatar image" src="img/avatar4.jpg">
+                                <div class="content">
+                                    <div class="header">Dr. Celine Uy</div>
+                                    Wuhan University
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="eight wide column">
+                    <div class="ui segment">
+                        <div class="ui blue ribbon label">Reservation</div>
+                        <div class="ui red dividing header">
+                            
+                            <div class="content">
+                                Pendragon Veterinary Clinic
+                                <div class="sub header">Amaremca Bldg. 107A Kalayaan Ave, Diliman, Quezon City, 1101 Metro Manila</div>
+                            </div>
+                        </div>
+                        <div class="ui ordered list">
+                            <div class="item" id="doctor">
+                                <img class="ui avatar image" src="img/avatar3.jpg">
+                                <div class="content">
+                                    <div class="header">Dr. Katheryn Santos</div>
+                                    University of the Philippines Los Banos
+                                </div>
+                            </div>
+                            <div class="item" id="doctor">
+                                <img class="ui avatar image" src="img/avatar9.jpg">
+                                <div class="content">
+                                    <div class="header">Dr. Katrina Santos</div>
+                                    University of the Philippines Los Banos
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="eight wide column">
+                    <div class="ui segment">
+                        <div class="ui blue ribbon label">Reservation</div>
+                        <div class="ui red dividing header">
+                            
+                            <div class="content">
+                                Primitiva Veterinary Clinic
+                                <div class="sub header">2045-E Oynx, Paco, Manila, Metro Manila</div>
+                            </div>
+                        </div>
+                        <div class="ui ordered list">
+                            <div class="item" id="doctor">
+                                <img class="ui avatar image" src="img/avatar6.jpg">
+                                <div class="content">
+                                    <div class="header">Dr. Jasmine Primitiva</div>
+                                    De La Salle Araneta University
+                                </div>
+                            </div>
+                            <div class="item" id="doctor">
+                                    <img class="ui avatar image" src="img/avatar15.jpg">
+                                    <div class="content">
+                                        <div class="header">Dr. Arlene Primitiva</div>
+                                        University of the Philippines Los Banos
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+<div class="ui inverted vertical footer segment">
+  <div class="ui container">
+    <div class="ui stackable inverted divided equal height stackable grid">
+      <div class="four wide column">
+        <h4 class="ui inverted header">Sections</h4>
+        <div class="ui inverted link list">
+          <a href="#" class="item">Home</a>
+        </div>
+      </div>
+      <div class="nine wide column">
+        <h4 class="ui inverted header">Company Title</h4>
+        <p>Some Motto right here.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+</body>
+</html>
